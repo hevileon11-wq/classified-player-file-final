@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CLASSIFIED // PLAYER 2</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --pink:#ff82b2;
+    --lightpink:#ffc1d8;
+    --darkpink:#d94f86;
+    --black:#080609;
+    --panel:#120c11;
+    --gray:#b9aeb4;
+    --white:#fff0f6;
+    --red:#ff426f;
+}
+
+body{
+    background:
+        radial-gradient(circle at 20% 10%, #351522 0%, transparent 30%),
+        radial-gradient(circle at 80% 80%, #30121e 0%, transparent 30%),
+        #080609;
+    color:var(--white);
+    font-family:'Share Tech Mono', monospace;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.08;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 2px,
+            #fff 3px
+        );
+    z-index:999;
+}
+
+.stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.star{
+    position:absolute;
+    color:var(--pink);
+    animation:float 4s infinite ease-in-out;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);opacity:.5}
+    50%{transform:translateY(-12px);opacity:1}
+}
+
+/* =========================
+   APP
+========================= */
+
+.app{
+    display:flex;
+    min-height:100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    width:245px;
+    min-height:100vh;
+    border-right:2px solid var(--pink);
+    background:#0d090d;
+    padding:25px 18px;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    z-index:20;
+}
+
+.logo{
+    color:var(--pink);
+    font-family:'Press Start 2P';
+    font-size:13px;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.barcode{
+    height:35px;
+    width:100%;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            var(--pink) 0 2px,
+            transparent 2px 5px,
+            var(--pink) 5px 7px,
+            transparent 7px 10px
+        );
+    opacity:.7;
+    margin:15px 0;
+}
+
+.access{
+    color:var(--lightpink);
+    font-size:13px;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.nav button{
+    background:transparent;
+    color:var(--lightpink);
+    border:1px solid transparent;
+    padding:11px;
+    text-align:left;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:15px;
+    transition:.2s;
+}
+
+.nav button:hover,
+.nav button.active{
+    background:var(--pink);
+    color:#13080d;
+    border-color:var(--pink);
+}
+
+.kitty-mini{
+    text-align:center;
+    font-size:65px;
+    margin-top:35px;
+    filter:drop-shadow(0 0 8px #ff82b2);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:245px;
+    width:calc(100% - 245px);
+    padding:35px;
+}
+
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:30px;
+}
+
+.system{
+    color:var(--pink);
+    font-family:'Press Start 2P';
+    font-size:12px;
+}
+
+.status{
+    border:1px solid var(--pink);
+    padding:8px 12px;
+    color:var(--pink);
+    font-size:12px;
+}
+
+/* =========================
+   PAGES
+========================= */
+
+.page{
+    display:none;
+    animation:pageIn .4s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   HEADERS
+========================= */
+
+.page-title{
+    font-family:'Press Start 2P';
+    color:var(--pink);
+    font-size:26px;
+    margin-bottom:30px;
+    text-shadow:0 0 15px #ff4f91;
+}
+
+.page-subtitle{
+    color:var(--gray);
+    margin-bottom:25px;
+}
+
+/* =========================
+   PANELS
+========================= */
+
+.panel{
+    border:1px solid var(--pink);
+    background:linear-gradient(145deg,#160c12,#0c090c);
+    padding:25px;
+    position:relative;
+    box-shadow:0 0 20px #ff82b214;
+}
+
+.panel::before{
+    content:"✦";
+    position:absolute;
+    right:12px;
+    top:8px;
+    color:var(--pink);
+}
+
+/* =========================
+   HOME
+========================= */
+
+.hero{
+    display:grid;
+    grid-template-columns:1.5fr .8fr;
+    gap:20px;
+}
+
+.hero h1{
+    font-family:'Press Start 2P';
+    color:var(--pink);
+    font-size:32px;
+    line-height:1.5;
+    margin-bottom:25px;
+}
+
+.hero p{
+    color:#d8c7ce;
+    line-height:1.8;
+    max-width:650px;
+}
+
+.subject-card{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.data{
+    border:1px solid #71334c;
+    padding:15px;
+}
+
+.data small{
+    color:var(--pink);
+    display:block;
+    margin-bottom:8px;
+}
+
+.data strong{
+    font-size:18px;
+}
+
+.big-kitty{
+    height:100%;
+    min-height:320px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:160px;
+    background:
+        radial-gradient(circle,#ff82b222,transparent 65%);
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.photo-box{
+    height:320px;
+    border:1px solid var(--pink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        linear-gradient(135deg,#29131d,#090709);
+    position:relative;
+    overflow:hidden;
+}
+
+.photo-box::after{
+    content:"INSERT SUBJECT PHOTO";
+    position:absolute;
+    bottom:15px;
+    left:0;
+    right:0;
+    text-align:center;
+    color:#9e7182;
+    font-size:12px;
+}
+
+.photo-placeholder{
+    font-size:100px;
+    filter:grayscale(1);
+    opacity:.7;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px dashed #633147;
+}
+
+.info-row span:first-child{
+    color:var(--pink);
+}
+
+.stats{
+    margin-top:20px;
+}
+
+.stat{
+    margin:14px 0;
+}
+
+.stat-header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:6px;
+}
+
+.stat-bar{
+    height:14px;
+    border:1px solid var(--pink);
+    padding:2px;
+}
+
+.stat-fill{
+    height:100%;
+    background:var(--pink);
+}
+
+/* =========================
+   FILES
+========================= */
+
+.files-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.folder{
+    background:#e878a5;
+    color:#220c15;
+    padding:22px 15px;
+    min-height:145px;
+    cursor:pointer;
+    position:relative;
+    transition:.25s;
+    box-shadow:8px 8px 0 #4b1d31;
+}
+
+.folder:hover{
+    transform:translateY(-6px) rotate(-1deg);
+}
+
+.folder::before{
+    content:"";
+    position:absolute;
+    top:-12px;
+    left:0;
+    width:75px;
+    height:15px;
+    background:#e878a5;
+}
+
+.folder .icon{
+    font-size:38px;
+    margin-bottom:15px;
+}
+
+.folder h3{
+    font-family:'Press Start 2P';
+    font-size:10px;
+    line-height:1.7;
+}
+
+.locked{
+    background:#27151e;
+    color:#9b6c7e;
+    border:1px solid #71334c;
+    box-shadow:none;
+}
+
+.locked::before{
+    background:#27151e;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:#000b;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:100;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(600px,100%);
+    background:#100a0e;
+    border:2px solid var(--pink);
+    padding:30px;
+    box-shadow:0 0 50px #ff82b244;
+}
+
+.modal-box h2{
+    color:var(--pink);
+    font-family:'Press Start 2P';
+    font-size:16px;
+    margin-bottom:20px;
+}
+
+.modal-box p{
+    line-height:1.9;
+    color:#ddd;
+    white-space:pre-line;
+}
+
+.close{
+    float:right;
+    background:none;
+    border:0;
+    color:var(--pink);
+    font-size:24px;
+    cursor:pointer;
+}
+
+/* =========================
+   EVIDENCE
+========================= */
+
+.evidence-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.polaroid{
+    background:#eee;
+    color:#111;
+    padding:10px 10px 18px;
+    transform:rotate(-2deg);
+    box-shadow:0 10px 20px #000;
+}
+
+.polaroid:nth-child(even){
+    transform:rotate(3deg);
+}
+
+.polaroid-image{
+    height:220px;
+    background:
+        linear-gradient(135deg,#32242b,#151015);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:70px;
+    filter:grayscale(.4);
+}
+
+.polaroid p{
+    padding:12px 5px 0;
+    font-family:'Share Tech Mono';
+    font-size:13px;
+}
+
+/* =========================
+   TOP GUN
+========================= */
+
+.boyish{
+    background:
+        linear-gradient(135deg,#080e12,#111820);
+    border:1px solid #9eacb3;
+}
+
+.topgun-title{
+    font-family:'Press Start 2P';
+    color:#d7e2e7;
+    font-size:32px;
+    letter-spacing:2px;
+    margin-bottom:20px;
+}
+
+.flight-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.maverick{
+    min-height:400px;
+    border:1px solid #9eacb3;
+    background:
+        radial-gradient(circle at 50% 30%,#53636d,#12181d 50%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:110px;
+}
+
+.quote{
+    border-left:4px solid #cbd8de;
+    padding:25px;
+    font-size:22px;
+    line-height:1.7;
+    color:#e5edf0;
+    background:#11181d;
+}
+
+.flight-data{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.flight-stat{
+    border:1px solid #47545a;
+    padding:15px;
+    text-align:center;
+}
+
+.flight-stat b{
+    display:block;
+    font-size:20px;
+    color:#d8e2e7;
+    margin-top:8px;
+}
+
+/* =========================
+   SOLDIER BOY
+========================= */
+
+.soldier{
+    background:
+        linear-gradient(135deg,#17130f,#0d0b0a);
+    border:1px solid #c9a96e;
+}
+
+.soldier-title{
+    color:#d9bd7e;
+    font-family:'Press Start 2P';
+    font-size:28px;
+    margin-bottom:25px;
+}
+
+.soldier-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.soldier-photo{
+    min-height:420px;
+    border:1px solid #9a7c43;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:110px;
+    background:
+        radial-gradient(circle,#4c3820,#100d0a 65%);
+}
+
+.soldier-card{
+    border:1px solid #9a7c43;
+    padding:25px;
+}
+
+.soldier-card h3{
+    color:#d9bd7e;
+    margin-bottom:15px;
+}
+
+.check{
+    margin:15px 0;
+    color:#d8d0c0;
+}
+
+.check::before{
+    content:"☑ ";
+    color:#d9bd7e;
+}
+
+/* =========================
+   FINAL REPORT
+========================= */
+
+.final{
+    max-width:900px;
+    margin:auto;
+}
+
+.report{
+    background:#f4b4cb;
+    color:#1c0b12;
+    padding:35px;
+    border:5px solid #d66a94;
+    box-shadow:12px 12px 0 #4c2033;
+}
+
+.report h2{
+    font-family:'Press Start 2P';
+    font-size:20px;
+    margin-bottom:25px;
+}
+
+.report p{
+    line-height:1.9;
+    margin-bottom:20px;
+}
+
+.rating{
+    text-align:center;
+    font-size:35px;
+    color:#a72f60;
+    margin:25px 0;
+}
+
+.keeper{
+    text-align:center;
+    font-family:'Press Start 2P';
+    font-size:24px;
+    border:3px solid #a72f60;
+    padding:18px;
+    transform:rotate(-2deg);
+    margin:20px auto;
+    max-width:300px;
+}
+
+.final-button{
+    display:block;
+    margin:25px auto 0;
+    padding:15px 25px;
+    background:#180b11;
+    color:var(--pink);
+    border:1px solid var(--pink);
+    font-family:inherit;
+    cursor:pointer;
+}
+
+/* =========================
+   SECRET
+========================= */
+
+.secret-message{
+    text-align:center;
+    padding:60px 20px;
+}
+
+.secret-message h2{
+    font-family:'Press Start 2P';
+    color:var(--pink);
+    font-size:24px;
+    line-height:1.8;
+}
+
+.secret-message p{
+    color:#d8c7ce;
+    margin:25px auto;
+    max-width:600px;
+    line-height:2;
+}
+
+.heart{
+    font-size:80px;
+    animation:heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.15)}
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+    .sidebar{
+        width:100%;
+        height:auto;
+        min-height:auto;
+        bottom:auto;
+        padding:12px;
+        border-right:0;
+        border-bottom:2px solid var(--pink);
+    }
+
+    .logo{
+        display:inline-block;
+        margin:0;
+        font-size:9px;
+    }
+
+    .barcode,
+    .access,
+    .kitty-mini{
+        display:none;
+    }
+
+    .nav{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:4px;
+        margin-top:10px;
+    }
+
+    .nav button{
+        font-size:10px;
+        padding:8px 3px;
+        text-align:center;
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:145px 15px 30px;
+    }
+
+    .topbar{
+        margin-bottom:20px;
+    }
+
+    .hero,
+    .profile-grid,
+    .flight-grid,
+    .soldier-grid{
+        grid-template-columns:1fr;
+    }
+
+    .files-grid,
+    .evidence-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .subject-card{
+        grid-template-columns:1fr;
+    }
+
+    .page-title{
+        font-size:18px;
+    }
+
+    .hero h1{
+        font-size:22px;
+    }
+
+    .big-kitty{
+        min-height:220px;
+        font-size:100px;
+    }
+}
+
+@media(max-width:500px){
+
+    .files-grid,
+    .evidence-grid{
+        grid-template-columns:1fr;
+    }
+
+    .flight-data{
+        grid-template-columns:1fr;
+    }
+
+    .report{
+        padding:20px;
+    }
+
+    .soldier-title,
+    .topgun-title{
+        font-size:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="app">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        CLASSIFIED<br>
+        PLAYER FILE
+    </div>
+
+    <div class="barcode"></div>
+
+    <div class="access">
+        ACCESS LEVEL: FRIEND<br>
+        STATUS: <span style="color:#ff82b2">♡ TRUSTED</span>
+    </div>
+
+    <div class="nav">
+
+        <button class="active" onclick="showPage('home',this)">
+            🏠 HOME
+        </button>
+
+        <button onclick="showPage('profile',this)">
+            👤 PROFILE
+        </button>
+
+        <button onclick="showPage('files',this)">
+            📁 FILES
+        </button>
+
+        <button onclick="showPage('evidence',this)">
+            📸 EVIDENCE
+        </button>
+
+        <button onclick="showPage('topgun',this)">
+            ✈️ TOP GUN
+        </button>
+
+        <button onclick="showPage('soldier',this)">
+            ★ SOLDIER BOY
+        </button>
+
+        <button onclick="showPage('final',this)">
+            ♥ FINAL REPORT
+        </button>
+
+    </div>
+
+    <div class="kitty-mini">
+        🎀
+        <br>
+        🐱
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+<div class="topbar">
+    <div class="system">
+        SYSTEM // ONLINE
+    </div>
+
+    <div class="status">
+        ● CLASSIFIED
+    </div>
+</div>
+
+
+<!-- ================= HOME ================= -->
+
+<section class="page active" id="home">
+
+<div class="hero">
+
+<div class="panel">
+
+    <h1>
+        ACCESS<br>
+        GRANTED ♡
+    </h1>
+
+    <p>
+        Welcome to the classified database of
+        <strong style="color:#ff82b2">PLAYER 2</strong>.
+        <br><br>
+
+        This file contains information collected
+        throughout the subject's friendship history.
+        Some information is confidential.
+        Some information is completely unnecessary.
+        Most of it is probably your fault.
+    </p>
+
+    <div class="subject-card">
+
+        <div class="data">
+            <small>CODENAME</small>
+            <strong>RABI</strong>
+        </div>
+
+        <div class="data">
+            <small>STATUS</small>
+            <strong>FRIEND ♡</strong>
+        </div>
+
+        <div class="data">
+            <small>FIRST CONTACT</small>
+            <strong>VALORANT 🎮</strong>
+        </div>
+
+        <div class="data">
+            <small>THREAT LEVEL</small>
+            <strong>LOW... MOSTLY</strong>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="panel big-kitty">
+
+    🐱🎀
+
+</div>
+
+</div>
+
+
+<br>
+
+<div class="panel">
+
+    <p style="color:#ff82b2">
+        SYSTEM NOTE:
+    </p>
+
+    <p style="margin-top:12px;line-height:1.8">
+
+        Two random people met through a game.
+
+        <br>
+
+        Expected outcome:
+        <strong>nothing.</strong>
+
+        <br>
+
+        Actual outcome:
+        <strong style="color:#ff82b2">
+            friendship.exe has been running for way too long.
+        </strong>
+
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- ================= PROFILE ================= -->
+
+<section class="page" id="profile">
+
+<h1 class="page-title">PLAYER PROFILE</h1>
+
+<div class="profile-grid">
+
+<div class="panel">
+
+    <div class="photo-box">
+        <div class="photo-placeholder">🕶️</div>
+    </div>
+
+    <br>
+
+    <div class="info-row">
+        <span>NAME</span>
+        <span>TOP SECRET</span>
+    </div>
+
+    <div class="info-row">
+        <span>OCCUPATION</span>
+        <span>PROBABLY GAMING</span>
+    </div>
+
+    <div class="info-row">
+        <span>LOCATION</span>
+        <span>PAKISTAN</span>
+    </div>
+
+    <div class="info-row">
+        <span>HOBBIES</span>
+        <span>GAMES / READ HISTORY BOOKS/ WATCH SERIES & MOVIES  / CHAOS</span>
+    </div>
+
+</div>
+
+
+<div class="panel">
+
+    <h2 style="color:#ff82b2;margin-bottom:20px">
+        SUBJECT ANALYSIS
+    </h2>
+
+    <p style="line-height:1.9;color:#d8c7ce">
+
+        The subject appears to possess an unusual
+        combination of questionable decisions,
+        gaming ability and surprisingly good vibes.
+
+        <br><br>
+
+        Further investigation is required.
+    </p>
+
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="stat-header">
+                <span>GAMING</span>
+                <span>100%</span>
+            </div>
+
+            <div class="stat-bar">
+                <div class="stat-fill" style="width:100%"></div>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-header">
+                <span>CHAOS</span>
+                <span>89%</span>
+            </div>
+
+            <div class="stat-bar">
+                <div class="stat-fill" style="width:89%"></div>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-header">
+                <span>YAPPING</span>
+                <span>94%</span>
+            </div>
+
+            <div class="stat-bar">
+                <div class="stat-fill" style="width:94%"></div>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-header">
+                <span>LUCK</span>
+                <span>37%</span>
+            </div>
+
+            <div class="stat-bar">
+                <div class="stat-fill" style="width:37%"></div>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-header">
+                <span>LOYALTY</span>
+                <span>100%</span>
+            </div>
+
+            <div class="stat-bar">
+                <div class="stat-fill" style="width:100%"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FILES ================= -->
+
+<section class="page" id="files">
+
+<h1 class="page-title">CLASSIFIED FILES</h1>
+
+<p class="page-subtitle">
+    Select a file to access its contents.
+</p>
+
+
+<div class="files-grid">
+
+    <div class="folder" onclick="openFile(1)">
+        <div class="icon">🎀</div>
+        <h3>FILE_001<br>FIRST CONTACT</h3>
+    </div>
+
+
+    <div class="folder" onclick="openFile(2)">
+        <div class="icon">🐱</div>
+        <h3>FILE_002<br>SUBJECT ANALYSIS</h3>
+    </div>
+
+
+    <div class="folder" onclick="openFile(3)">
+        <div class="icon">💗</div>
+        <h3>FILE_003<br>BEST MOMENTS</h3>
+    </div>
+
+
+    <div class="folder" onclick="openFile(4)">
+        <div class="icon">💀</div>
+        <h3>FILE_004<br>INSIDE JOKES</h3>
+    </div>
+
+
+    <div class="folder" onclick="openFile(5)">
+        <div class="icon">⭐</div>
+        <h3>FILE_005<br>WHY YOU'RE AWESOME</h3>
+    </div>
+
+
+    <div class="folder locked" onclick="secretFile()">
+        <div class="icon">🔒</div>
+        <h3>FILE_006<br>CLASSIFIED</h3>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ================= EVIDENCE ================= -->
+
+<section class="page" id="evidence">
+
+<h1 class="page-title">EVIDENCE ROOM</h1>
+
+<p class="page-subtitle">
+    Photographic evidence of questionable friendship activities.
+</p>
+
+
+<div class="evidence-grid">
+
+    <div class="polaroid">
+        <div class="polaroid-image">🎮</div>
+        <p>EVIDENCE #001<br>THE FIRST GAME</p>
+    </div>
+
+    <div class="polaroid">
+        <div class="polaroid-image">💬</div>
+        <p>EVIDENCE #024<br>CHAOTIC CONVERSATIONS</p>
+    </div>
+
+    <div class="polaroid">
+        <div class="polaroid-image">😂</div>
+        <p>EVIDENCE #037<br>QUESTIONABLE DECISIONS</p>
+    </div>
+
+    <div class="polaroid">
+        <div class="polaroid-image">🌙</div>
+        <p>EVIDENCE #052<br>RANDOM LATE NIGHT TALKS</p>
+    </div>
+
+    <div class="polaroid">
+        <div class="polaroid-image">🏆</div>
+        <p>EVIDENCE #069<br>THE GOOD MOMENTS</p>
+    </div>
+
+    <div class="polaroid">
+        <div class="polaroid-image">🐱</div>
+        <p>EVIDENCE #100<br>CLASSIFIED CUTENESS</p>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ================= TOP GUN ================= -->
+
+<section class="page" id="topgun">
+
+<div class="panel boyish">
+
+<h1 class="topgun-title">
+    ✈ TOP GUN // MAVERICK
+</h1>
+
+<p style="color:#aebbc1;margin-bottom:25px">
+    SPECIAL INTEREST DETECTED.
+    SUBJECT HAS EXTREMELY SPECIFIC TASTE.
+</p>
+
+
+<div class="flight-grid">
+
+    <div class="maverick">
+        🕶️✈️
+    </div>
+
+
+    <div>
+
+        <div class="quote">
+            "I FEEL THE NEED...
+            <br>
+            THE NEED FOR SPEED."
+        </div>
+
+        <br>
+
+        <div class="panel boyish">
+
+            <p style="line-height:1.9;color:#cbd7dc">
+
+                <strong>SUBJECT REACTION:</strong>
+
+                <br><br>
+
+                ☑ Loves Top Gun<br>
+                ☑ Appreciates Maverick<br>
+                ☑ Has probably seen it more than necessary<br>
+                ☑ Would absolutely survive a dramatic movie montage
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="flight-data">
+
+    <div class="flight-stat">
+        MAVERICK
+        <b>100</b>
+    </div>
+
+    <div class="flight-stat">
+        SPEED
+        <b>MAX</b>
+    </div>
+
+    <div class="flight-stat">
+        STYLE
+        <b>CLASSIFIED</b>
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SOLDIER BOY ================= -->
+
+<section class="page" id="soldier">
+
+<div class="panel soldier">
+
+<h1 class="soldier-title">
+    ★ SOLDIER BOY // FILE
+</h1>
+
+<p style="color:#c8bda8;margin-bottom:25px">
+    SUBJECT'S OTHER QUESTIONABLE OBSESSION.
+</p>
+
+
+<div class="soldier-grid">
+
+    <div class="soldier-photo">
+        🪖
+    </div>
+
+
+    <div class="soldier-card">
+
+        <h3>SUBJECT REACTION</h3>
+
+        <div class="check">
+            Respects the vibes
+        </div>
+
+        <div class="check">
+            Appreciates the character
+        </div>
+
+        <div class="check">
+            Would probably main him in a game
+        </div>
+
+        <div class="check">
+            Has opinions
+        </div>
+
+        <div class="check">
+            Too many opinions
+        </div>
+
+        <br>
+
+        <p style="line-height:1.9;color:#c8bda8">
+
+            <strong>ASSESSMENT:</strong>
+
+            <br><br>
+
+            The subject has demonstrated
+            repeated interest in fictional
+            characters with questionable
+            personalities.
+
+            <br><br>
+
+            Scientists remain confused.
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FINAL ================= -->
+
+<section class="page" id="final">
+
+<div class="final">
+
+<h1 class="page-title">
+    FINAL REPORT
+</h1>
+
+
+<div class="report">
+
+<h2>FINAL ASSESSMENT</h2>
+
+<p>
+
+Subject originally entered the database
+as a random player encountered through
+an online game.
+
+</p>
+
+<p>
+
+Further investigation revealed:
+
+<br><br>
+
+• good conversations<br>
+• random jokes<br>
+• gaming sessions<br>
+• unexpected lore<br>
+• suspicious amounts of yapping<br>
+• and many memories that were never part
+of the original mission
+
+</p>
+
+
+<p>
+
+After extensive investigation,
+the classification of the subject
+has officially been updated.
+
+</p>
+
+
+<div class="rating">
+    ★ ★ ★ ★ ★
+</div>
+
+
+<div class="keeper">
+    KEEPER
+</div>
+
+
+<p style="text-align:center">
+
+100 / 100
+
+<br><br>
+
+<strong>
+Case status:
+<br>
+NOT CLOSED.
+</strong>
+
+</p>
+
+
+<button class="final-button" onclick="finalMessage()">
+    ACCESS FINAL NOTE ♡
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal" id="modal">
+
+<div class="modal-box">
+
+<button class="close" onclick="closeModal()">×</button>
+
+<h2 id="modalTitle">
+    CLASSIFIED
+</h2>
+
+<p id="modalText"></p>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   STARS
+========================= */
+
+const stars = document.getElementById("stars");
+
+for(let i=0;i<45;i++){
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+
+    star.innerHTML =
+        Math.random() > .5 ? "✦" : "♡";
+
+    star.style.left =
+        Math.random()*100 + "%";
+
+    star.style.top =
+        Math.random()*100 + "%";
+
+    star.style.fontSize =
+        (Math.random()*12+8) + "px";
+
+    star.style.animationDelay =
+        Math.random()*4 + "s";
+
+    stars.appendChild(star);
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showPage(pageId,button){
+
+    document.querySelectorAll(".page")
+        .forEach(page=>{
+            page.classList.remove("active");
+        });
+
+    document.getElementById(pageId)
+        .classList.add("active");
+
+    document.querySelectorAll(".nav button")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
+
+    button.classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =========================
+   FILE SYSTEM
+========================= */
+
+const files = {
+
+1:{
+    title:"FILE_001 // FIRST CONTACT",
+    text:
+`Location: VALORANT
+
+Initial encounter:
+Two people joined the same digital battlefield.
+
+Expected result:
+Play the game and leave.
+
+Unexpected result:
+They kept talking.
+
+Current result:
+Friendship successfully installed.
+
+STATUS: PERMANENT`
+},
+
+2:{
+    title:"FILE_002 // SUBJECT ANALYSIS",
+    text:
+`The subject appears to be:
+
+• funny
+• slightly chaotic
+• suspiciously competitive
+• capable of excellent conversations
+• somehow still functioning
+
+Overall assessment:
+
+Good human.
+Keep around.`
+},
+
+3:{
+    title:"FILE_003 // BEST MOMENTS",
+    text:
+`This file contains memories that
+cannot be properly categorized.
+
+Gaming.
+Random conversations.
+Laughing at stupid things.
+Talking about completely unrelated topics.
+
+Some moments were planned.
+
+Most absolutely were not.`
+},
+
+4:{
+    title:"FILE_004 // INSIDE JOKES",
+    text:
+`WARNING:
+
+This file contains information
+that would make absolutely no sense
+to anyone outside the friendship.
+
+Access granted anyway.
+
+[INSERT YOUR INSIDE JOKES HERE]`
+},
+
+5:{
+    title:"FILE_005 // WHY YOU'RE AWESOME",
+    text:
+`Official report:
+
+The subject is genuinely someone
+worth keeping in your life.
+
+No further explanation is required.
+
+This conclusion has been approved
+by the extremely professional
+Classified Friendship Department.
+
+♡`
+}
+
+};
+
+
+function openFile(number){
+
+    document.getElementById("modalTitle")
+        .innerText = files[number].title;
+
+    document.getElementById("modalText")
+        .innerText = files[number].text;
+
+    document.getElementById("modal")
+        .classList.add("show");
+}
+
+
+function closeModal(){
+
+    document.getElementById("modal")
+        .classList.remove("show");
+}
+
+
+function secretFile(){
+
+    document.getElementById("modalTitle")
+        .innerText =
+        "FILE_006 // ACCESS DENIED";
+
+    document.getElementById("modalText")
+        .innerText =
+`Nice try.
+
+You found the classified file.
+
+But apparently you're not
+authorized to know what's inside.
+
+...
+
+Actually,
+
+you are.
+
+♡`;
+
+    document.getElementById("modal")
+        .classList.add("show");
+}
+
+
+/* =========================
+   FINAL NOTE
+========================= */
+
+function finalMessage(){
+
+    document.getElementById("modalTitle")
+        .innerText =
+        "FINAL NOTE // CLASSIFIED";
+
+    document.getElementById("modalText")
+        .innerText =
+`Some friendships are planned.
+
+Some happen because people
+have known each other forever.
+
+And then there are the weird ones.
+
+You meet someone randomly,
+probably while playing a game,
+and somehow they become
+one of the people you genuinely
+enjoy having around.
+
+So yeah.
+
+Official verdict:
+
+KEEPER ♡
+
+Case remains open.
+
+Because the story isn't finished yet.`;
+
+    document.getElementById("modal")
+        .classList.add("show");
+}
+
+
+/* =========================
+   CLOSE MODAL OUTSIDE
+========================= */
+
+document.getElementById("modal")
+.addEventListener("click",function(e){
+
+    if(e.target === this){
+        closeModal();
+    }
+
+});
+
+</script>
+
+</body>
+  </html>
